@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ListarCartoes } from "./Components/listar_carotes";
-
+// ver modelo mais atual do react
 function App() {
     
   return (

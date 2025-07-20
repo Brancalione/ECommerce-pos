@@ -1,7 +1,7 @@
 import '../ComponentsCss/cartao_prod.css';
 import { Produto } from '../inteface/produtos';
 
-export const Cartao_produtos = (produto: Produto) => {
+export const Cartao_produtos: React.FC<{ produto: Produto }> = ({ produto }) => {
   return (
     <div className='containerPrincipal'>
       <section className="sectionPrincipal">

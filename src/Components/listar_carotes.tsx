@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Produto } from "../inteface/produtos";
 import { Cartao_produtos } from "./cartao_produtos";
-import { ReactFormState } from "react-dom/client";
+// importar constante com JSON
 
-
-export const ListarCartoes = () => {
+export const ListarCartoes: React.FC = () => {
     const [todosProdutos , setTodosProdutos] = useState<Produto[]>([]); 
     const [produtosExibidos, setProdutosExibidos] = useState<Produto[]>([]);
-    const [idFiltro, setIdFiltro] = useState<string>();
+    const [idFiltro, setIdFiltro] = useState<number>();
 
     const lerProdutosJson =  () => {
       fetch('/data.json')
@@ -16,20 +15,20 @@ export const ListarCartoes = () => {
           setTodosProdutos(data);
           setProdutosExibidos(data); 
       });
-    };
+    };// remover para outro elemento
 
     useEffect(() => {
       lerProdutosJson();
     }, []);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setIdFiltro(event.target.value); 
+      setIdFiltro(event.target.valueAsNumber); 
     };
 
     const filtrar_por_id = (event: React.FormEvent) => {
       event.preventDefault(); 
       if (idFiltro) {
-        const produtosFiltrados = todosProdutos.filter((produto) => Number(produto.id) === Number(idFiltro));
+        const produtosFiltrados = todosProdutos.filter((produto) => produto.id === idFiltro);
         setProdutosExibidos(produtosFiltrados);
       } else {
         setProdutosExibidos(todosProdutos);
@@ -40,7 +39,7 @@ export const ListarCartoes = () => {
       <>
         <form onSubmit={filtrar_por_id}>
           <input 
-            type="text"
+            type="number"
             placeholder="Código"
             value={idFiltro}
             onChange={handleChange} />
@@ -48,13 +47,7 @@ export const ListarCartoes = () => {
         </form>
         
         {produtosExibidos.map((produto: Produto) => (
-          <Cartao_produtos 
-            id = { produto.id}
-            name = {produto.name}
-            description = {produto.description}
-            price = { produto.price}
-            category = { produto.category }
-            pictureUrl = {produto.pictureUrl }
+          <Cartao_produtos produto={produto}
           />      
         ))}
         
