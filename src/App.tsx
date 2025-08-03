@@ -1,20 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ListarCartoes } from "./Components/listar_carotes";
-// ver modelo mais atual do react
+// App.jsx
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
+
 function App() {
-    
-  return (
-    <div className="App">
-      <header className="App-header">
-        <BrowserRouter>
-          <Routes>
-            <Route index path="/" />
-            <Route path="/listar" element={< ListarCartoes />} />
-          </Routes>
-      </BrowserRouter>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -1,0 +1,23 @@
+.formulario-produto {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.formulario-produto input,
+.formulario-produto textarea {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  border: 0.15rem  solid #020202;
+  border-radius:  0.5rem;
+  
+}
+.botao-salvar{
+  margin-right: 10px;
+}
+
+
