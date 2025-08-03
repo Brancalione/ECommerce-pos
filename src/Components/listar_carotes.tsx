@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Produto } from "../inteface/produtos";
 import { Cartao_produtos } from "./cartao_produtos";
-// importar constante com JSON
+import '../ComponentsCss/input_filtrar.css';
+import { Link, useRouteLoaderData } from "react-router-dom";
+import { useProdutos } from "../data/produtos_context";
 
 export const ListarCartoes: React.FC = () => {
-    const [todosProdutos , setTodosProdutos] = useState<Produto[]>([]); 
-    const [produtosExibidos, setProdutosExibidos] = useState<Produto[]>([]);
+    // const dadosLoader = useRouteLoaderData("id") as Produto[];
+    const { produtos } = useProdutos();
+
+    const [todosProdutos ] = useState<Produto[]>(produtos); 
+    const [produtosExibidos, setProdutosExibidos] = useState<Produto[]>(produtos);
     const [idFiltro, setIdFiltro] = useState<number>();
-
-    const lerProdutosJson =  () => {
-      fetch('/data.json')
-        .then((res) => res.json())
-        .then((data: Produto[]) => {
-          setTodosProdutos(data);
-          setProdutosExibidos(data); 
-      });
-    };// remover para outro elemento
-
-    useEffect(() => {
-      lerProdutosJson();
-    }, []);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setIdFiltro(event.target.valueAsNumber); 
@@ -34,23 +26,26 @@ export const ListarCartoes: React.FC = () => {
         setProdutosExibidos(todosProdutos);
       }
     }
-    
+
     return (
       <>
-        <form onSubmit={filtrar_por_id}>
-          <input 
-            type="number"
-            placeholder="Código"
-            value={idFiltro}
-            onChange={handleChange} />
-          <button type='submit' className='filtrar'>Filtrar</button>
-        </form>
-        
+        <div className="botoes_topo">
+          <form className="input_filtrar" onSubmit={filtrar_por_id}>
+            <input id="input_filtrar"
+              type="number"
+              placeholder="Código"
+              value={idFiltro}
+              onChange={handleChange} />
+            <button type='submit' className='filtrar'>Filtrar</button>
+          </form>
+          <Link to="/listar/novo">
+            <button  className="botao_cadastrar">Novo Produto</button>
+          </Link>
+        </div>
         {produtosExibidos.map((produto: Produto) => (
           <Cartao_produtos produto={produto}
           />      
         ))}
-        
       </>  
     )
 }

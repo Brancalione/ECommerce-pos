@@ -6,4 +6,7 @@ export interface Produto {
     category: string;
     pictureUrl: string;
   }
- 
+export interface ProdutosContextType {
+  produtos: Produto[];
+  adicionarProduto: (produto: Produto) => void;
+}

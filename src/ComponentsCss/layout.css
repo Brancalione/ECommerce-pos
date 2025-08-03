@@ -1,0 +1,22 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background: #333;
+  color: white;
+  padding: 1rem;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  background: #fff;
+}
