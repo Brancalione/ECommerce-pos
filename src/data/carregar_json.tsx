@@ -1,6 +1,10 @@
 import { Produto } from '../inteface/produtos';
-import data from './data.json'
+import axios from "axios";
 
-export function carregarJson(){
-  return data as Produto[];
+export async function carregarJson() {
+  console.log("1")
+
+  const response = await axios.get<Produto[]>("http://localhost:3001/api/product");
+  console.log("ase")
+  return response.data as Produto[];;
 }
