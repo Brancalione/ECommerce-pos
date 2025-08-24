@@ -12,12 +12,10 @@
   padding: 0.7rem;
   margin-bottom: 1rem;
   font-size: 0.8rem;
-  border: 0.15rem  solid #020202;
-  border-radius:  0.5rem;
-  
+  border: 0.15rem solid #020202;
+  border-radius: 0.5rem;
 }
-.botao-salvar{
+
+.botao-salvar {
   margin-right: 10px;
 }
-
-

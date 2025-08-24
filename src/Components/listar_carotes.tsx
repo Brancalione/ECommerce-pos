@@ -5,29 +5,33 @@ import '../ComponentsCss/input_filtrar.css';
 import { Link, useLoaderData } from "react-router-dom";
 
 export const ListarCartoes: React.FC = () => {
-    const produtos = useLoaderData() as Produto[];
+    const produtosIniciais = useLoaderData() as Produto[];
 
-    const [todosProdutos] = useState<Produto[]>(produtos);
-    const [produtosExibidos, setProdutosExibidos] = useState<Produto[]>(produtos);
-    const [idFiltro, setIdFiltro] = useState<string>(''); 
+    const [produtosExibidos, setProdutosExibidos] = useState<Produto[]>(produtosIniciais);
+    const [idFiltro, setIdFiltro] = useState<string>('');
 
     useEffect(() => {
         const timerId = setTimeout(() => {
             if (idFiltro) {
                 const idNumerico = parseInt(idFiltro, 10);
-                const produtosFiltrados = todosProdutos.filter((produto) => produto.id === idNumerico);
+                const produtosFiltrados = produtosIniciais.filter((produto) => produto.id === idNumerico);
                 setProdutosExibidos(produtosFiltrados);
             } else {
-                setProdutosExibidos(todosProdutos);
+                setProdutosExibidos(produtosIniciais);
             }
-        }, 5000); 
+        }, 500);
         return () => {
             clearTimeout(timerId);
         };
-    }, [idFiltro, todosProdutos]);
+    }, [idFiltro, produtosIniciais]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIdFiltro(event.target.value);
+    };
+
+    const handleProductDeleted = (idToDelete: number) => {
+      const updatedList = produtosExibidos.filter(produto => produto.id !== idToDelete);
+      setProdutosExibidos(updatedList);
     };
 
     return (
@@ -45,7 +49,10 @@ export const ListarCartoes: React.FC = () => {
                 </Link>
             </div>
             {produtosExibidos.map((produto: Produto) => (
-                <Cartao_produtos key={produto.id} produto={produto} />
+                <Cartao_produtos 
+                    key={produto.id} 
+                    produto={produto} 
+                />
             ))}
         </>
     )
